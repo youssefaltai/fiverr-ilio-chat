@@ -129,23 +129,6 @@ const initialState: MessagesState = {
       read: false,
       isDeleting: undefined,
     },
-    ...[...Array(10).keys()].map(i => ({
-      id: i + 4,
-      title: 'Exotic Red Poodle',
-      subtitle: 'Blueberrypoodle',
-      avatar: 'images/poodle1.jpg',
-      messages: [
-        {
-          id: 1,
-          type: 'text',
-          content: 'Hi, I\'m interested in your poodle.',
-          time: 1695757557470,
-          fromMe: true,
-        },
-      ],
-      read: false,
-      isDeleting: undefined,
-    })),
   ],
   selectedConversation: undefined,
 } as MessagesState;
