@@ -75,13 +75,13 @@ import {styled} from 'styled-components';
   }
 }
 
-@media (width<= 600px) {
+@media (width <= 600px) {
   .carousel {
     grid-auto-columns: calc(50% - 7px);
   }
 }
 
-@media (width<= 428px) {
+@media (width <= 428px) {
   .btns {
     display: none;
   }

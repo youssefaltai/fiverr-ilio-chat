@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const deleteConversationTimeout = 5000;
 
+export type SelectedConversationType = number | undefined;
+
 export interface IMessage {
   id: number;
   type: 'text' | 'image';
@@ -22,6 +24,7 @@ export interface IConversation {
 
 interface MessagesState {
   conversations: IConversation[];
+  selectedConversation: SelectedConversationType;
 }
 
 const initialState: MessagesState = {
@@ -144,6 +147,7 @@ const initialState: MessagesState = {
       isDeleting: undefined,
     })),
   ],
+  selectedConversation: undefined,
 } as MessagesState;
 
 export const messagesSlice = createSlice({
@@ -218,6 +222,13 @@ export const messagesSlice = createSlice({
         ))
       };
     },
+    setSelectedConversation: (state, action: PayloadAction<number>) => {
+      const id = action.payload;
+      return { ...state, selectedConversation: id };
+    },
+    unselectConversation: (state) => {
+      return { ...state, selectedConversation: undefined };
+    }
   },
 });
 
@@ -228,6 +239,8 @@ export const {
   markConversationForDeletion,
   sendTextMessageToConversation,
   sendImageMessageToConversation,
+  setSelectedConversation,
+  unselectConversation,
 } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

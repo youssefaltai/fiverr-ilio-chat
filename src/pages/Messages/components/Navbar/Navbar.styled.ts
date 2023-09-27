@@ -1,0 +1,20 @@
+import { styled } from "styled-components";
+
+const NavbarStyle = styled.div`
+  height: 66px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: calc(100% - 48px);
+  overflow: hidden;
+  background-color: white;
+  z-index: 999;
+
+  @media (width <= 680px) {
+    height: 66px;
+  }
+`;
+
+
+export default NavbarStyle;
