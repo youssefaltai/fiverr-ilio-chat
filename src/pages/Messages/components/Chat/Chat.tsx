@@ -18,25 +18,17 @@ type ChatProps = {
 
 const Chat = ({ onDeleteClicked }: ChatProps) => {
   const selectedConversation = useAppSelector((state) => state.messages.selectedConversation)!;
-  const conversations = useAppSelector((state) => state.messages.conversations);
-  const [conversationInputs, setConversationInputs] = useState<{ [key: number]: string }>(
-    conversations.reduce((acc, conversation) => {
-      acc[conversation.id] = "";
-      return acc;
-    }, {} as { [key: number]: string })
-  );
+  const [conversationInput, setConversationInput] = useState<string>("");
   const dispatch = useAppDispatch();
 
   const sendTextMessage = (id: number) => {
-    if (conversationInputs[id] === "") {
+    if (conversationInput === "") {
       return;
     }
 
-    dispatch(sendTextMessageToConversation({ id, content: conversationInputs[id] }));
+    dispatch(sendTextMessageToConversation({ id, content: conversationInput }));
 
-    const newConversationInputs = { ...conversationInputs };
-    newConversationInputs[id] = "";
-    setConversationInputs(newConversationInputs);
+    setConversationInput("");
   }
 
   const sendImageMessage = (id: number) => {
@@ -77,11 +69,9 @@ const Chat = ({ onDeleteClicked }: ChatProps) => {
           rows={1}
           placeholder="Add a comment..."
           onInput={(e) => autoGrow(e.target as HTMLTextAreaElement)}
-          value={conversationInputs[selectedConversation] ?? ""}
+          value={conversationInput}
           onChange={(e) => {
-            const newConversationInputs = { ...conversationInputs };
-            newConversationInputs[selectedConversation] = e.target.value;
-            setConversationInputs(newConversationInputs);
+            setConversationInput(e.target.value);
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
@@ -90,7 +80,7 @@ const Chat = ({ onDeleteClicked }: ChatProps) => {
             }
           }}
         />
-        {conversationInputs[selectedConversation] !== "" ? (
+        {conversationInput !== "" ? (
           <ChatSendButton
             $variant="text"
             onClick={() => sendTextMessage(selectedConversation)}
