@@ -26,6 +26,10 @@ const ChatInput = styled.textarea`
 
   min-height: 40px;
   max-height: 75px;
+
+  @media (width <= 680px) {
+    font-size: 16px;
+  }
 `;
 
 export default ChatInput;

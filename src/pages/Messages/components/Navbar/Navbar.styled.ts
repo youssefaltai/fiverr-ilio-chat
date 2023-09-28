@@ -12,7 +12,7 @@ const NavbarStyle = styled.div`
   z-index: 999;
 
   @media (width <= 680px) {
-    height: 66px;
+    padding: 0 24px;
   }
 `;
 

@@ -12,11 +12,15 @@ const DeletedConversationStyle = styled.div`
   padding: 18px 16px;
   border-radius: 8px;
 
-  margin: 8px 0 8px 0;
+  margin: 8px 0 8px 10px;
   
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  @media (width <= 680px) {
+    margin: 8px 10px 8px 10px;
+  }
 `;
 
 export default DeletedConversationStyle;

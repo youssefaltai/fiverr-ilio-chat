@@ -32,6 +32,7 @@ const ConversationsListStyle = styled.div<ConversationsListProps>`
     width: 100%;
     max-width: 100%;
     padding-right: 0;
+    padding: 0 14px;
     border-right: none;
   }
 `;

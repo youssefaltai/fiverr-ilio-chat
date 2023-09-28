@@ -34,12 +34,7 @@ const ConversationStyle = styled.div<ConversationStyleProps>`
   }
 
   @media (width <= 680px) {
-    padding: 12px 0;
-
-    &:hover {
-      background-color: inherit;
-      cursor: pointer;
-    }
+    padding: 12px 10px;
   }
 `;
 
