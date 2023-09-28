@@ -32,6 +32,15 @@ const ConversationStyle = styled.div<ConversationStyleProps>`
     background-color: #F0F3F5;
     cursor: pointer;
   }
+
+  @media (width <= 680px) {
+    padding: 12px 0;
+
+    &:hover {
+      background-color: inherit;
+      cursor: pointer;
+    }
+  }
 `;
 
 export default ConversationStyle;
