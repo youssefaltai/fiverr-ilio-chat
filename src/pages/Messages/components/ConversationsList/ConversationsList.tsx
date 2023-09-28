@@ -25,9 +25,10 @@ const ConversationsList = () => {
   return (
     <ConversationsListStyle $selectedConversation={selectedConversation}>
       {conversations.map((conversation, index) => (
-        <Suspense fallback={<ConversationLoading />}>
+        <Suspense
+          key={index}
+          fallback={<ConversationLoading />}>
           <Conversation
-            key={index}
             onClick={() => {
               selectConversation(conversation.id)
             }}

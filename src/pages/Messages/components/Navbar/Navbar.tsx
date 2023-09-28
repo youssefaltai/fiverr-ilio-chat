@@ -36,7 +36,7 @@ const Navbar = ({
     <NavbarStyle>
       <AppLogo onClick={() => navigate("/")} />
       <NavbarBackButton>
-        <NavbarBackButtonIcon onClick={navigateBack}>
+        <NavbarBackButtonIcon onClick={navigateBack} aria-label="Back">
           <BackSvg />
         </NavbarBackButtonIcon>
         <NavbarBackButtonTitle $selectedConversation={selectedConversation}>
