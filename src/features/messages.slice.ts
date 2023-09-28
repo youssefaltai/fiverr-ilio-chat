@@ -33,7 +33,7 @@ const initialState: MessagesState = {
       id: 1,
       title: 'Exotic Red Poodle',
       subtitle: 'Blueberrypoodle',
-      avatar: 'images/poodle1.jpg',
+      avatar: 'images/poodles/poodle1.jpg',
       messages: [
         {
           id: 1,
@@ -71,7 +71,7 @@ const initialState: MessagesState = {
       id: 2,
       title: 'quiet sable male ',
       subtitle: 'quitepoodle',
-      avatar: 'images/poodle2.jpg',
+      avatar: 'images/poodles/poodle2.jpg',
       messages: [
         {
           id: 1,
@@ -90,7 +90,7 @@ const initialState: MessagesState = {
         {
           id: 3,
           type: 'image',
-          content: 'images/poodle1.jpg',
+          content: 'images/poodles/poodle1.jpg',
           time: 1695757557474,
           fromMe: false,
         },
@@ -109,7 +109,7 @@ const initialState: MessagesState = {
       id: 3,
       title: 'Exotic Red Poodle',
       subtitle: 'Blueberrypoodle',
-      avatar: 'images/poodle3.jpg',
+      avatar: 'images/poodles/poodle3.jpg',
       messages: [
         {
           id: 1,
