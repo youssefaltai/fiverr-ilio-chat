@@ -90,7 +90,7 @@ const initialState: MessagesState = {
         {
           id: 3,
           type: 'image',
-          content: 'images/poodles/poodle1.jpg',
+          content: 'images/poodle1.jpg',
           time: 1695757557474,
           fromMe: false,
         },

@@ -18,7 +18,11 @@ const ChatMessage = ({ message, showTime }: ChatMessageProps) => {
           {message.content}
         </ChatTextMessageContent>
       ) : (
-        <ChatImageMessageContent src={message.content} alt="message" />
+        <ChatImageMessageContent
+          src={message.content}
+          alt="message"
+          width="202px"
+        />
       )}
       {showTime && (
         <ChatMessageTime>
