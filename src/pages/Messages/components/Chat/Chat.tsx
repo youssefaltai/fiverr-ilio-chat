@@ -1,16 +1,25 @@
 import { useAppDispatch, useAppSelector } from "~/features/hooks";
+import { useState } from "react";
+import { sendImageMessageToConversation, sendTextMessageToConversation } from "~/features/messages.slice";
 import ChatHeaderStyle from "../common/ChatHeader.styled";
+import autoGrow from "./utils/autoGrow";
 import ChatHeader from "./ChatHeader/ChatHeader";
-import ChatStyle from "./Chat.styled";
 import ChatBody from "./ChatBody/ChatBody";
+import ImageSvg from "../Svgs/ImageSvg";
+import SendSvg from "../Svgs/SendSvg";
+import ChatStyle from "./Chat.styled";
 import ChatFooter from "./ChatFooter.styled";
 import ChatInput from "./ChatInput.styled";
 import ChatSendButton from "./ChatSendButton.styled";
-import ImageSvg from "../Svgs/ImageSvg";
-import SendSvg from "../Svgs/SendSvg";
-import { useState } from "react";
-import { sendImageMessageToConversation, sendTextMessageToConversation } from "~/features/messages.slice";
-import autoGrow from "./utils/autoGrow";
+
+// const ChatHeader = lazy(() => import("./ChatHeader/ChatHeader"));
+// const ChatBody = lazy(() => import("./ChatBody/ChatBody"));
+// const ImageSvg = lazy(() => import("../Svgs/ImageSvg"));
+// const SendSvg = lazy(() => import("../Svgs/SendSvg"));
+// const ChatStyle = lazy(() => import("./Chat.styled"));
+// const ChatFooter = lazy(() => import("./ChatFooter.styled"));
+// const ChatInput = lazy(() => import("./ChatInput.styled"));
+// const ChatSendButton = lazy(() => import("./ChatSendButton.styled"));
 
 type ChatProps = {
   onDeleteClicked: (id: number) => void;

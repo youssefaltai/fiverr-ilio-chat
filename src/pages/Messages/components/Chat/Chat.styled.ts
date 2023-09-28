@@ -4,6 +4,7 @@ import { SelectedConversationType } from "~/features/messages.slice";
 type ChatStyleProps = {
   $selectedConversation: SelectedConversationType ;
 }
+
 const ChatStyle = styled.div<ChatStyleProps>`
   display: ${(props) => props.$selectedConversation !== undefined ? "flex" : "none"};
   font-family: Inter;

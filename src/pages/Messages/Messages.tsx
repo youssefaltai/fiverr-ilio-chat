@@ -7,14 +7,19 @@ import {
   deleteConversation,
   unselectConversation,
 } from "~/features/messages.slice";
+import Wrapper from "./components/Wrapper.styled";
+import Container from "./components/Container.styled";
 import Navbar from "./components/Navbar/Navbar";
 import Title from "./components/Title.styled";
-import Container from "./components/Container.styled";
-import ConversationsList from "./components/ConversationsList/ConversationsList";
-import SelectConversation from "./components/Chat/SelectedConversation.styled";
-import Chat from "./components/Chat/Chat";
 import Main from "./components/Main.styled";
-import Wrapper from "./components/Wrapper.styled";
+import SelectConversation from "./components/Chat/SelectedConversation.styled";
+import { Suspense, lazy } from "react";
+import ConversationsListLoading from "./components/ConversationsList/ConversationsList.loading";
+import ChatLoading from "./components/Chat/Chat.loading";
+import LoadingSpinner from "./components/LoadingSpinner";
+
+const ConversationsList = lazy(() => import("./components/ConversationsList/ConversationsList"));
+const Chat = lazy(() => import("./components/Chat/Chat"));
 
 const pageTitle = "Messages";
 
@@ -47,15 +52,28 @@ const Messages = () => {
           onDeleteClicked={onDeleteClicked}
         />
         <Title>{pageTitle}</Title>
+
         <Main>
-          <ConversationsList />
+          <Suspense fallback={
+            <ConversationsListLoading>
+              <LoadingSpinner />
+            </ConversationsListLoading>
+          }>
+            <ConversationsList />
+          </Suspense>
           {
             selectedConversation === undefined ? (
               <SelectConversation $selectedConversation={selectedConversation}>
                 Select a conversation to start messaging
               </SelectConversation>
             ) : (
-              <Chat onDeleteClicked={onDeleteClicked} />
+              <Suspense fallback={
+                <ChatLoading>
+                  <LoadingSpinner />
+                </ChatLoading>
+              }>
+                <Chat onDeleteClicked={onDeleteClicked} />
+              </Suspense>
             )
           }
         </Main>
