@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 
   box-sizing: border-box;
