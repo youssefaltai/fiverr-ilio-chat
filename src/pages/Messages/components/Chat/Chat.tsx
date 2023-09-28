@@ -70,7 +70,13 @@ const Chat = ({ onDeleteClicked }: ChatProps) => {
   }
 
   return (
-    <ChatStyle $selectedConversation={selectedConversation}>
+    <ChatStyle
+      $selectedConversation={selectedConversation}
+      onTouchMove={
+        // Fix momentum scrolling on iOS
+        (e) => {
+          e.stopPropagation();
+        }}>
       <ChatHeader
         ChatHeaderStyle={ChatHeaderStyle}
         onDeleteClicked={onDeleteClicked}

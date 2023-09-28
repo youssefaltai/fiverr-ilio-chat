@@ -23,7 +23,13 @@ const ConversationsList = () => {
   }
 
   return (
-    <ConversationsListStyle $selectedConversation={selectedConversation}>
+    <ConversationsListStyle
+      $selectedConversation={selectedConversation}
+      onTouchMove={
+        // Fix momentum scrolling on iOS
+        (e) => {
+          e.stopPropagation();
+        }}>
       {conversations.map((conversation, index) => (
         <Suspense
           key={index}
