@@ -2,8 +2,12 @@ import moment from "moment";
 import { useAppSelector } from "~/features/hooks";
 import { SelectedConversationType } from "~/features/messages.slice";
 import ChatBodyStyle from "./ChatBody.styled";
-import ChatMessage from "../ChatMessage/ChatMessage";
+// import ChatMessage from "../ChatMessage/ChatMessage";
 import ChatDateSeparator from "./ChatDateSeparator.styled";
+import { Suspense, lazy } from "react";
+import ChatMessageLoading from "../ChatMessage/ChatMessage.loading";
+
+const ChatMessage = lazy(() => import("../ChatMessage/ChatMessage"));
 
 type ChatBodyProps = {
   selectedConversation: SelectedConversationType;
@@ -24,14 +28,16 @@ const ChatBody = ({ selectedConversation }: ChatBodyProps) => {
         <div
           key={index}
         >
-          <ChatMessage
-            message={message}
-            showTime={
-              index === 0 ||
-              messages.at(index - 1)?.fromMe !== message.fromMe ||
-              moment(message.time).diff(moment(messages.at(index - 1)?.time), "minutes") > 5
-            }
-          />
+          <Suspense fallback={<ChatMessageLoading message={message} />}>
+            <ChatMessage
+              message={message}
+              showTime={
+                index === 0 ||
+                messages.at(index - 1)?.fromMe !== message.fromMe ||
+                moment(message.time).diff(moment(messages.at(index - 1)?.time), "minutes") > 5
+              }
+            />
+          </Suspense>
           {/* Date separator if day changes */}
           {(moment(message.time).dayOfYear() !== moment(messages.at(index - 1)?.time).dayOfYear() && index !== 0) && (
             <ChatDateSeparator>

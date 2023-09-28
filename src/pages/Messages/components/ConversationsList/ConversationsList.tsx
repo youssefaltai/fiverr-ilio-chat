@@ -1,7 +1,11 @@
 import { useAppDispatch, useAppSelector } from "~/features/hooks";
 import ConversationsListStyle from "./ConversationsList.styled";
-import Conversation from "../Conversation/Conversation";
+// import Conversation from "../Conversation/Conversation";
 import { markConversationAsRead, setSelectedConversation } from "~/features/messages.slice";
+import { lazy, Suspense } from "react";
+import ConversationLoading from "../Conversation/Conversation.loading";
+
+const Conversation = lazy(() => import("../Conversation/Conversation"));
 
 const ConversationsList = () => {
   const selectedConversation = useAppSelector((state) => state.messages.selectedConversation);
@@ -21,14 +25,16 @@ const ConversationsList = () => {
   return (
     <ConversationsListStyle $selectedConversation={selectedConversation}>
       {conversations.map((conversation, index) => (
-        <Conversation
-          key={index}
-          onClick={() => {
-            selectConversation(conversation.id)
-          }}
-          selectedConversation={selectedConversation}
-          conversation={conversation}
-        />
+        <Suspense fallback={<ConversationLoading />}>
+          <Conversation
+            key={index}
+            onClick={() => {
+              selectConversation(conversation.id)
+            }}
+            selectedConversation={selectedConversation}
+            conversation={conversation}
+          />
+        </Suspense>
       ))}
     </ConversationsListStyle>
   );

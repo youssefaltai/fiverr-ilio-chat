@@ -16,7 +16,6 @@ import SelectConversation from "./components/Chat/SelectedConversation.styled";
 import { Suspense, lazy } from "react";
 import ConversationsListLoading from "./components/ConversationsList/ConversationsList.loading";
 import ChatLoading from "./components/Chat/Chat.loading";
-import LoadingSpinner from "./components/LoadingSpinner";
 
 const ConversationsList = lazy(() => import("./components/ConversationsList/ConversationsList"));
 const Chat = lazy(() => import("./components/Chat/Chat"));
@@ -54,11 +53,7 @@ const Messages = () => {
         <Title>{pageTitle}</Title>
 
         <Main>
-          <Suspense fallback={
-            <ConversationsListLoading>
-              <LoadingSpinner />
-            </ConversationsListLoading>
-          }>
+          <Suspense fallback={<ConversationsListLoading />}>
             <ConversationsList />
           </Suspense>
           {
@@ -67,11 +62,7 @@ const Messages = () => {
                 Select a conversation to start messaging
               </SelectConversation>
             ) : (
-              <Suspense fallback={
-                <ChatLoading>
-                  <LoadingSpinner />
-                </ChatLoading>
-              }>
+              <Suspense fallback={<ChatLoading />}>
                 <Chat onDeleteClicked={onDeleteClicked} />
               </Suspense>
             )
