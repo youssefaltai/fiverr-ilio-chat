@@ -12,11 +12,12 @@ import Container from "./components/Container.styled";
 import Navbar from "./components/Navbar/Navbar";
 import Title from "./components/Title.styled";
 import Main from "./components/Main.styled";
-import SelectConversation from "./components/Chat/SelectedConversation.styled";
+// import SelectConversation from "./components/Chat/SelectedConversation.styled";
 import { Suspense, lazy } from "react";
 import ConversationsListLoading from "./components/ConversationsList/ConversationsList.loading";
 import ChatLoading from "./components/Chat/Chat.loading";
 
+const SelectConversation = lazy(() => import("./components/Chat/SelectedConversation.styled"));
 const ConversationsList = lazy(() => import("./components/ConversationsList/ConversationsList"));
 const Chat = lazy(() => import("./components/Chat/Chat"));
 
@@ -58,9 +59,11 @@ const Messages = () => {
           </Suspense>
           {
             selectedConversation === undefined ? (
-              <SelectConversation $selectedConversation={selectedConversation}>
-                Select a conversation to start messaging
-              </SelectConversation>
+              <Suspense fallback={<ChatLoading />}>
+                <SelectConversation $selectedConversation={selectedConversation}>
+                  Select a conversation to start messaging
+                </SelectConversation>
+              </Suspense>
             ) : (
               <Suspense fallback={<ChatLoading />}>
                 <Chat onDeleteClicked={onDeleteClicked} />

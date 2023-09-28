@@ -1,25 +1,28 @@
 import { useAppDispatch, useAppSelector } from "~/features/hooks";
-import { useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import { sendImageMessageToConversation, sendTextMessageToConversation } from "~/features/messages.slice";
 import ChatHeaderStyle from "../common/ChatHeader.styled";
 import autoGrow from "./utils/autoGrow";
 import ChatHeader from "./ChatHeader/ChatHeader";
-import ChatBody from "./ChatBody/ChatBody";
+// import ChatBody from "./ChatBody/ChatBody";
 import ImageSvg from "../Svgs/ImageSvg";
 import SendSvg from "../Svgs/SendSvg";
 import ChatStyle from "./Chat.styled";
 import ChatFooter from "./ChatFooter.styled";
-import ChatInput from "./ChatInput.styled";
-import ChatSendButton from "./ChatSendButton.styled";
+import ChatInputLoading from "./ChatInput.loading";
+import ChatSendButtonLoading from "./ChatSendButton.loading";
+import ChatBodyLoading from "./ChatBody/ChatBody.loading";
+// import ChatInput from "./ChatInput.styled";
+// import ChatSendButton from "./ChatSendButton.styled";
 
 // const ChatHeader = lazy(() => import("./ChatHeader/ChatHeader"));
-// const ChatBody = lazy(() => import("./ChatBody/ChatBody"));
+const ChatBody = lazy(() => import("./ChatBody/ChatBody"));
 // const ImageSvg = lazy(() => import("../Svgs/ImageSvg"));
 // const SendSvg = lazy(() => import("../Svgs/SendSvg"));
 // const ChatStyle = lazy(() => import("./Chat.styled"));
 // const ChatFooter = lazy(() => import("./ChatFooter.styled"));
-// const ChatInput = lazy(() => import("./ChatInput.styled"));
-// const ChatSendButton = lazy(() => import("./ChatSendButton.styled"));
+const ChatInput = lazy(() => import("./ChatInput.styled"));
+const ChatSendButton = lazy(() => import("./ChatSendButton.styled"));
 
 type ChatProps = {
   onDeleteClicked: (id: number) => void;
@@ -72,38 +75,44 @@ const Chat = ({ onDeleteClicked }: ChatProps) => {
         ChatHeaderStyle={ChatHeaderStyle}
         onDeleteClicked={onDeleteClicked}
       />
-      <ChatBody selectedConversation={selectedConversation} />
+      <Suspense fallback={<ChatBodyLoading />}>
+        <ChatBody selectedConversation={selectedConversation} />
+      </Suspense>
       <ChatFooter>
-        <ChatInput
-          rows={1}
-          placeholder="Add a comment..."
-          onInput={(e) => autoGrow(e.target as HTMLTextAreaElement)}
-          value={conversationInput}
-          onChange={(e) => {
-            setConversationInput(e.target.value);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              sendTextMessage(selectedConversation);
-            }
-          }}
-        />
-        {conversationInput !== "" ? (
-          <ChatSendButton
-            $variant="text"
-            onClick={() => sendTextMessage(selectedConversation)}
-          >
-            <SendSvg />
-          </ChatSendButton>
-        ) : (
-          <ChatSendButton
-            $variant="image"
-            onClick={() => sendImageMessage(selectedConversation)}
-          >
-            <ImageSvg />
-          </ChatSendButton>
-        )}
+        <Suspense fallback={<ChatInputLoading />}>
+          <ChatInput
+            rows={1}
+            placeholder="Add a comment..."
+            onInput={(e) => autoGrow(e.target as HTMLTextAreaElement)}
+            value={conversationInput}
+            onChange={(e) => {
+              setConversationInput(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                sendTextMessage(selectedConversation);
+              }
+            }}
+          />
+        </Suspense>
+        <Suspense fallback={<ChatSendButtonLoading />}>
+          {conversationInput !== "" ? (
+            <ChatSendButton
+              $variant="text"
+              onClick={() => sendTextMessage(selectedConversation)}
+            >
+              <SendSvg />
+            </ChatSendButton>
+          ) : (
+            <ChatSendButton
+              $variant="image"
+              onClick={() => sendImageMessage(selectedConversation)}
+            >
+              <ImageSvg />
+            </ChatSendButton>
+          )}
+        </Suspense>
       </ChatFooter>
     </ChatStyle>
   );

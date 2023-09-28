@@ -4,12 +4,16 @@ import DeletedConversationStyle from "./DeletedConversation.styled";
 import DeletedConversationTitle from "./DeletedConversationTitle.styled";
 import UndoButton from "./UndoButton.styled";
 import ConversationStyle from "./Conversation.styled";
-import ConversationAvatar from "./ConversationAvatar.styled";
+// import ConversationAvatar from "./ConversationAvatar.styled";
 import ConversationTitle from "./ConversationDate/ConversationTitle.styled";
 import ConversationDate from "./ConversationDate/ConversationDate";
 import ConversationInfo from "./ConversationInfo.styled";
 import ConversationHeader from "./ConversationHeader.styled";
 import ConversationLastMessage from "./ConversationLastMessage/ConversationLastMessage";
+import { Suspense, lazy } from "react";
+import ConversationAvatarLoading from "./ConversationAvatar.loading";
+
+const ConversationAvatar = lazy(() => import("./ConversationAvatar.styled"));
 
 type ConversationProps = {
   onClick: () => void;
@@ -42,12 +46,14 @@ const Conversation = ({ selectedConversation, onClick, conversation }: Conversat
       $selectedConversation={selectedConversation}
       $conversation={conversation}
     >
-      <ConversationAvatar
-        src={conversation.avatar}
-        alt={conversation.title}
-        width="46px"
-        height="46px"
-      />
+      <Suspense fallback={<ConversationAvatarLoading />}>
+        <ConversationAvatar
+          src={conversation.avatar}
+          alt={conversation.title}
+          width="46px"
+          height="46px"
+        />
+      </Suspense>
       <ConversationInfo>
         <ConversationHeader>
           <ConversationTitle>

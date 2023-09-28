@@ -8,7 +8,10 @@ import Edit from "./pages/Edit/Edit";
 import Help from "./pages/Help/Help";
 import Listing from "./pages/Listing/Listing";
 import Saved from "./pages/Saved/Saved";
-import Messages from "./pages/Messages/Messages";
+import { lazy, Suspense } from "react";
+// import Messages from "./pages/Messages/Messages";
+
+const Messages = lazy(() => import("./pages/Messages/Messages"));
 
 const PublicRoutes = () => {
   return (
@@ -35,7 +38,11 @@ const PublicRoutes = () => {
         <Route path="/menuSaved" element={<Saved />} />
 
         {/* Messages */}
-        <Route path="/messages" element={<Messages />} />
+        <Route path="/messages" element={
+          <Suspense fallback={<></>}>
+            <Messages />
+          </Suspense>
+        } />
       </Routes>
     </div>
   );
