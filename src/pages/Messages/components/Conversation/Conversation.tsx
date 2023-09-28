@@ -45,8 +45,8 @@ const Conversation = ({ selectedConversation, onClick, conversation }: Conversat
       <ConversationAvatar
         src={conversation.avatar}
         alt={conversation.title}
-        width={46}
-        height={46}
+        width="46px"
+        height="46px"
       />
       <ConversationInfo>
         <ConversationHeader>
