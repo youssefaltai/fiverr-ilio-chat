@@ -42,7 +42,12 @@ const Conversation = ({ selectedConversation, onClick, conversation }: Conversat
       $selectedConversation={selectedConversation}
       $conversation={conversation}
     >
-      <ConversationAvatar src={conversation.avatar} alt={conversation.title} />
+      <ConversationAvatar
+        src={conversation.avatar}
+        alt={conversation.title}
+        width={46}
+        height={46}
+      />
       <ConversationInfo>
         <ConversationHeader>
           <ConversationTitle>
