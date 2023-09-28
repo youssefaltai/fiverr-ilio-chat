@@ -13,7 +13,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Title from "./components/Title.styled";
 import Main from "./components/Main.styled";
 // import SelectConversation from "./components/Chat/SelectedConversation.styled";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import ConversationsListLoading from "./components/ConversationsList/ConversationsList.loading";
 import ChatLoading from "./components/Chat/Chat.loading";
 
@@ -27,6 +27,19 @@ const Messages = () => {
   const selectedConversation = useAppSelector((state) => state.messages.selectedConversation);
   const conversations = useAppSelector((state) => state.messages.conversations);
   const dispatch = useAppDispatch();
+
+  // Fix momentum scroll on iOS
+  useEffect(() => {
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+    }
+
+    document.addEventListener("touchmove", handleTouchMove, { passive: false });
+
+    return () => {
+      document.removeEventListener("touchmove", handleTouchMove);
+    }
+  }, []);
 
   const onDeleteClicked = (id: number) => {
     dispatch(unselectConversation());
