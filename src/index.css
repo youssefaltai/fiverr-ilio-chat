@@ -7,6 +7,11 @@
   --chat-page-mobile-width-breakpoint: 680px;
 }
 
+html,
+body {
+  height: -webkit-fill-available;
+}
+
 body {
   all: unset;
   font-size: 16px;
