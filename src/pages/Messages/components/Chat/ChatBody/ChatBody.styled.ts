@@ -6,6 +6,8 @@ const ChatBodyStyle = styled.div`
   height: 100%;
   overflow-y: scroll;
 
+  flex: 1;
+
   /* Align to bottom */
   display: flex;
   flex-direction: column-reverse;

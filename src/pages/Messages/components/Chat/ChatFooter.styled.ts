@@ -11,9 +11,6 @@ const ChatFooter = styled.div`
   padding: 15px 0;
 
   @media (width <= 680px) {
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-    bottom: 0;
     padding: 15px 24px;
   }
 `;
