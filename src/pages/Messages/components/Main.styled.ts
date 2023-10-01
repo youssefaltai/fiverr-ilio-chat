@@ -9,7 +9,7 @@ const Main = styled.div`
   height: calc(100vh - 66px - 66px - 10px - 5px);
 
   @media (width <= 680px) {
-    height: calc(100vh - 66px - 10px - 5px);
+    height: calc(100dvh - 66px - 10px - 5px);
   }
 `;
 
